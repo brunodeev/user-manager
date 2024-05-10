@@ -6,38 +6,43 @@
   </form>
 
   <ul>
-    <li v-for="user in users">{{ user.name }}</li>
+    <li v-for="user in users">{{ user.name }} - {{ user.age }}</li>
   </ul>
 </template>
 
-<script setup>
-  import { ref } from 'vue';
-
-  var users = ref([]);
-  listUsers()
-
-  var user = {
-      name: '',
-      age: '',
+<script>
+export default {
+  data() {
+    return {
+      user: {
+        name: '',
+        age: '',
+      },
+      users: [],
+    }
+  },
+  methods: {
+    listUsers() {
+      fetch('http://localhost:8080/users')
+      .then(res => res.json())
+      .then(body => {
+        this.users = body
+      })
+    },
+    addUser() {
+      fetch('http://localhost:8080/users', {
+        method: "POST",
+        body: JSON.stringify(this.user),
+        headers: {"Content-Type":"application/json; charset=UTF-8"},
+      })
+      .then(res => res.text())
+      .then(body => {
+        console.log("É -> " + body)
+      });
+    }
+  },
+  mounted(){
+    this.listUsers();
   }
-
-  function listUsers() {
-    fetch('http://localhost:8080/users')
-    .then(res => res.json())
-    .then(body => {
-      users.value = body
-    })
-  }
-
-  function addUser() {
-    fetch('http://localhost:8080/users', {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: {"Content-Type":"application/json; charset=UTF-8"},
-    })
-    .then(res => res.text())
-    .then(body => {
-      console.log("É -> " + body)
-    });
-  }
+}
 </script>
