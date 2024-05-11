@@ -18,15 +18,17 @@ export default {
       })
     },
     addUser() {
-      fetch('http://localhost:8080/users', {
-        method: "POST",
-        body: JSON.stringify(this.user),
-        headers: {"Content-Type":"application/json; charset=UTF-8"},
-      })
-      .then(res => res.text())
-      .then(body => {
-        console.log("É -> " + body)
-      });
+      if(this.user.name !== '' && this.user.age !== '') {
+        fetch('http://localhost:8080/users', {
+          method: "POST",
+          body: JSON.stringify(this.user),
+          headers: {"Content-Type":"application/json; charset=UTF-8"},
+        })
+        .then(res => res.text())
+        .then(body => {
+          console.log("É -> " + body)
+        });
+      }
     }
   },
   mounted(){
@@ -81,6 +83,7 @@ export default {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+  margin: 20px;
 }
 
 .inputs {
@@ -106,5 +109,19 @@ export default {
   border-radius: 8px;
   background-color: #28cb61;
   cursor: pointer;
+}
+
+.list {
+  height: 20rem;
+  overflow: scroll;
+}
+
+.list .item-list {
+  list-style: none;
+  width: 10rem;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  background-color: white;
 }
 </style>
