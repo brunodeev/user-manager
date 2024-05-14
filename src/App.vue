@@ -123,5 +123,17 @@ export default {
   border-radius: 8px;
   margin-bottom: 5px;
   background-color: white;
+  animation: fadeIn .8s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0px, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0px, 0, 0);
+  }
 }
 </style>
