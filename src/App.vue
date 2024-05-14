@@ -24,10 +24,6 @@ export default {
           body: JSON.stringify(this.user),
           headers: {"Content-Type":"application/json; charset=UTF-8"},
         })
-        .then(res => res.text())
-        .then(body => {
-          console.log("É -> " + body)
-        });
       }
     }
   },
